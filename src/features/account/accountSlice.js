@@ -15,12 +15,13 @@ export default function reducerAccount(state = InitialStateAccount, action) {
         ...state,
         loan: 0,
         loanPurpose: "",
-        balance: state.balance - state.loan,
+        balance: state.balance - action.payload,
       };
     case "account/requestLoan":
       return {
         ...state,
-        balance: state.balance + action.payload.loan,
+        balance: state.balance + action.payload.amount,
+        loan: action.payload.amount,
         loanPurpose: action.payload.loanPurpose,
       };
     default:
