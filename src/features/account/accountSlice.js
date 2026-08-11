@@ -32,7 +32,7 @@ const accountSlice = createSlice({
 });
 
 console.log(accountSlice);
-export const { deposit, withdraw, requestLoan, payLoan } = accountSlice.actions;
+export const { withdraw, requestLoan, payLoan } = accountSlice.actions;
 export default accountSlice.reducer;
 // export default function reducerAccount(state = InitialStateAccount, action) {
 //   switch (action.type) {
@@ -63,29 +63,31 @@ export default accountSlice.reducer;
 //       return state;
 //   }
 // }
-// export function deposit(amount, currency) {
-//   if (currency === "USD") {
-//     return {
-//       type: "account/deposit",
-//       payload: amount,
-//     };
-//   }
-//   return async function (dispatch, getState) {
-//     try {
-//       dispatch({ type: "account/converting" });
-//       const res = await fetch(
-//         `https://api.frankfurter.dev/v1/latest?amount=${amount}&from=${currency}&to=USD`,
-//       );
-//       const data = await res.json();
-//       const convertedAmount = data?.rates?.USD ?? amount;
-//       console.log(convertedAmount);
-//       return dispatch({ type: "account/deposit", payload: convertedAmount });
-//     } catch (error) {
-//       console.error("Currency conversion failed", error);
-//       return dispatch({ type: "account/deposit", payload: amount });
-//     }
-//   };
-// }
+
+// sends converted currency to the payload
+export function deposit(amount, currency) {
+  if (currency === "USD") {
+    return {
+      type: "account/deposit",
+      payload: amount,
+    };
+  }
+  return async function (dispatch, getState) {
+    try {
+      dispatch({ type: "account/converting" });
+      const res = await fetch(
+        `https://api.frankfurter.dev/v1/latest?amount=${amount}&from=${currency}&to=USD`,
+      );
+      const data = await res.json();
+      const convertedAmount = data?.rates?.USD ?? amount;
+      console.log(convertedAmount);
+      return dispatch({ type: "account/deposit", payload: convertedAmount });
+    } catch (error) {
+      console.error("Currency conversion failed", error);
+      return dispatch({ type: "account/deposit", payload: amount });
+    }
+  };
+}
 // export function withdraw(amount) {
 //   return {
 //     type: "account/withdraw",
