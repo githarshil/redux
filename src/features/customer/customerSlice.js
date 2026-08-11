@@ -6,7 +6,22 @@ const InitialState = {
   createdAt: "",
 };
 
-const customerSlice = createSlice({ name: "cutomer", InitialState });
+const customerSlice = createSlice({
+  name: "cutomer",
+  InitialState,
+  reducers: {
+    createCustomer(state, action) {
+      InitialState.fullName = action.payload.fullName;
+      InitialState.nationalID = action.payload.nationalID;
+      InitialState.createdAt = new Date().toLocaleDateString();
+    },
+    updateCustomer(state, action) {
+      InitialState.fullName = action.payload.fullName;
+    },
+  },
+});
+export const { createCustomer, updateCustomer } = customerSlice.actions;
+export default customerSlice.reducer;
 // export default function reducerCustomer(state = InitialStateCustomer, action) {
 //   switch (action.type) {
 //     case "customer/createCustomer":
