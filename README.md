@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Redux Bank
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A small banking app — open an account, deposit, withdraw, request a loan, and pay it off — built specifically to learn Redux and Redux Toolkit fundamentals with a real (if small) global state.
 
-## Available Scripts
+**Tech stack:** React (Create React App) · Redux · Redux Toolkit · React Redux · Redux Thunk
 
-In the project directory, you can run:
+## What I Built
 
-### `npm start`
+- **Two Redux slices** — `accountSlice.js` (balance, loan, deposit/withdraw/loan actions) and `customerSlice.js` (customer creation and details) — each with their own actions and reducers.
+- **Account operations UI** (`AccountOperations.js`) — deposit, withdraw, request loan, and pay loan, all dispatching actions into the store.
+- **A balance display** (`BalanceDisplay.js`) that reads directly from the Redux store via `useSelector`, no prop drilling.
+- **Customer creation flow** (`CreateCustomer.js`) that has to run before account operations are enabled, modeling a real dependency between two slices of state.
+- **Async logic with Redux Thunk** — for actions that need to do something asynchronous (e.g. simulate a loan approval delay) before updating the store.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## What I Learned
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Redux's core mental model** — actions, reducers, and a single store — by building it with both classic Redux and Redux Toolkit side by side, so I could actually see how much boilerplate Toolkit removes.
+- **`useSelector` and `useDispatch`** as the two hooks that connect any component to the store, instead of the old `connect()` HOC pattern.
+- **Structuring state by feature (slices)** rather than one flat reducer, and why that scales better as an app grows.
+- **Where thunks fit in** — handling async logic (API calls, delays) in Redux without putting async code directly inside a reducer, which has to stay a pure function.
+- **When Redux is actually worth it** — this project was small enough that I could feel where global state was genuinely helpful (account balance, customer identity) versus where local component state would have been simpler.
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm install
+npm start
+```
